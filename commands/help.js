@@ -20,11 +20,6 @@ exports.run = (client, message, args, config) => {
             "```"+config.prefix+"reload [command]```"+
             "Reloads the given command. Requires bot ownership.")
             return;
-        case "nick":
-            message.channel.send("Usage:\n"+
-            "```"+config.prefix+"nick (new nickname)```"+
-            "Sets your nick. If none is provided, your nick is removed.")
-            return;
         case "config":
             message.channel.send("Usage:\n"+
             "```"+config.prefix+"config [set/view] [option] [value]```"+
@@ -34,7 +29,6 @@ exports.run = (client, message, args, config) => {
             message.channel.send("**Available Commands**\n"+
             "```"+config.prefix+"kick\n"+
             config.prefix+"kick\n"+
-            config.prefix+"nick\n"+
             config.prefix+"ban\n"+
             config.prefix+"info\n"+
             config.prefix+"config\n"+

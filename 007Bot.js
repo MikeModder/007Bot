@@ -4,9 +4,9 @@ const config = require("./config.json");
 
 client.on("ready", () => {
   //console.log("007Bot ready! Serving "+client.users.size+" users in "+client.guilds.size+" servers!");
-  console.log("Bot is ready! Logged in as ${client.user.username}.\nServing ${client.users.size} servers, in ${client.guilds.size} servers.")
+  console.log(`Bot is ready! Logged in as ${client.user.username}.\nServing ${client.users.size} servers, in ${client.guilds.size} servers.`)
   //client.user.setGame(`Say ${config.prefix}help for help! | `+client.guilds.size+' servers | '+client.users.size+' users.');
-  client.user.setGame('Say ${config.prefix}help for help! | In ${client.guilds.size} servers | ${client.users.size} users.')
+  client.user.setGame(`Say ${config.prefix}help for help! | In ${client.guilds.size} servers | ${client.users.size} users.`)
 });
 
 client.on("message", message => {

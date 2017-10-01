@@ -4,8 +4,6 @@ exports.run = (client, message, [mention, ...reason], config) => {
         return;
     }
 
-    console.log(mention);
-
     if(message.mentions.members.size === 0){
         message.channel.send(":x: Error! You must mention a user to ban!")
         return;
@@ -23,7 +21,7 @@ exports.run = (client, message, [mention, ...reason], config) => {
     kMember.send(`You have been banned from the server **${message.guild.name}**\nReason: `+fullReason);
 
     kMember.ban(fullReason).then(member => {
-        message.channel.send("User **${member.user.username}** was banned!")
+        message.channel.send(`User **${member.user.username}** was banned!`)
         return;
     })
 };

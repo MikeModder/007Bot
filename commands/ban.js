@@ -11,7 +11,7 @@ exports.run = (client, message, [mention, ...reason], config) => {
         return;
     }
 
-    if(message.guild.me.permissions.has("BAN_MEMBERS")){
+    if(!message.guild.me.permissions.has("BAN_MEMBERS")){
         message.channel.send(":x: Error! I don't have permission to ban users!")
         return;
     }

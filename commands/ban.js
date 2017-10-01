@@ -1,10 +1,10 @@
 exports.run = (client, message, [mention, ...reason], config) => {
-    if(!message.author.id === (config.owner)){
+    if(!message.author.permissions.has('BAN_MEMBERS')){
         message.channel.send(":x: You don't have permission to run that command!")
         return;
     }
 
-    if(message.mention.members.size === 0){
+    if(message.mentions.members.size === 0){
         message.channel.send(":x: Error! You must mention a user to ban!")
         return;
     }
@@ -16,7 +16,7 @@ exports.run = (client, message, [mention, ...reason], config) => {
 
     kMember = message.mentions.members.first();
 
-    kMember.send("You have been kicked from the server **${message.guild.name}**\nReason: "+reason.join(" "));
+    kMember.send("You have been banned from the server **${message.guild.name}**\nReason: "+reason.join(" "));
 
     kMember.ban(reason.join(" ")).then(member => {
         message.channel.send("User **${member.user.username}** was banned!")

@@ -1,5 +1,5 @@
 exports.run = (client, message, [mention, ...reason], config) => {
-    if(!message.author.permissions.has('BAN_MEMBERS')){
+    if(!message.member.permissions.has('BAN_MEMBERS')){
         message.channel.send(":x: You don't have permission to run that command!")
         return;
     }

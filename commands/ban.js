@@ -4,6 +4,8 @@ exports.run = (client, message, [mention, ...reason], config) => {
         return;
     }
 
+    console.log(mention);
+
     if(message.mentions.members.size === 0){
         message.channel.send(":x: Error! You must mention a user to ban!")
         return;

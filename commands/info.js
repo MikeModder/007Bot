@@ -8,8 +8,8 @@ exports.run = (client, message, args) => {
         return;
     } else {
         let usr = message.mentions.members.first();
-        message.channel.send(`Info about \`'${usr.tag}\`:\n`+
-        `Username: ${usr.username}\n`+
+        message.channel.send(`Info about \`${usr.user.tag}\`:\n`+
+        `Username: ${usr.user.username}\n`+
         `ID: ${usr.id}`)
         return;
     }

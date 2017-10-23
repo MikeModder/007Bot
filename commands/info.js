@@ -13,7 +13,7 @@ exports.run = (client, message, args, config) => {
         `Username: ${usr.user.username}\n`+
         `ID: ${usr.id}`
 
-        if(config.dbans.usedbans){
+        if(true){
             let request = require('request')
             request.post('https://bans.discordlist.net/api',{ form: { version: 3, userid: usr.id, token: config.dbans.key } }, (err, http, body) => {
                 if(err && http.statusCode !== 200){

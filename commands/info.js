@@ -17,6 +17,7 @@ exports.run = (client, message, args, config) => {
             let request = require('request')
             request.post('https://bans.discordlist.net/api',{ form: { version: 3, userid: usr.id, token: config.dbans.key } }, (err, http, body) => {
                 if(err && http.statusCode !== 200){
+                    msg += `There was an error checking DBans!`
                     message.channel.send(msg)
                     return;
                 }

@@ -2,7 +2,7 @@ exports.run = (client, message, args, config) => {
     //message.channel.send("007Bot: info placeholder!")
     if(message.mentions.members.size === 0){
         let usr = message.author;
-        message.channel.send(`Info about \`'${usr.tag}\`:\n`+
+        message.channel.send(`Info about \`${usr.tag}\`:\n`+
         `Username: ${usr.username}\n`+
         `ID: ${usr.id}`)
         return;
@@ -14,11 +14,20 @@ exports.run = (client, message, args, config) => {
         `ID: ${usr.id}`
 
         if(config.dbans.usedbans){
-            let DiscordBans = require('discord-bans')
-            let dbans = new DiscordBans(config.dbans.key)
+            let request = require('request')
+            request.post('https://bans.discordlist.net/api',{ form: { version: 3, userid: usr.id, token: config.dbans.key } }, (err, http, body) => {
+                if(err && http.statusCode !== 200){
+                    message.channel.send(msg)
+                    return;
+                }
 
-            dbans.isbanned(usr.id)
-                .then(isBanned => msg += `\nUser ${isBanned ? 'is' : 'is not'} banned!`)
+                if(body !== "True" && body !== "False"){
+                    body = JSON.parse(body)
+                    msg += `\nThis user is on the DBans list!`
+                    msg += `\nReason: ${body[3]}`
+                }
+
+            })
 
         }
 

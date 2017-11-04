@@ -1,6 +1,6 @@
 exports.run = (client, message, args, config) => {
     let request = require('request')
-    request('http://ibot.idroid.me/api/stats', (err, http, body) => {
+    request('http://ibot.idroid.me/api/bot/stats', (err, http, body) => {
         if(err){
             message.channel.send(":x: There was an error getting iBot's stats!")
             return;

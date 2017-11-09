@@ -8,6 +8,7 @@ exports.run = (client, message, args, config) => {
         return;
     } else {
         let usr = message.mentions.members.first();
+        let dbgMsg = "";
 
         let msg = `Info about \`${usr.user.tag}\`:\n`+
         `Username: ${usr.user.username}\n`+
@@ -15,7 +16,7 @@ exports.run = (client, message, args, config) => {
 
         if(true){
             let request = require('request')
-            request.post('https://bans.discordlist.net/api',{ form: {userid: usr.id, token: config.dbans.key } }, (err, http, body) => {
+            request.get('https://bans.discordlist.net/api',{ form: {userid: usr.id, token: config.dbans.key } }, (err, http, body) => {
                 if(err || http.statusCode !== 200){
                     msg += `\nThere was an error checking DBans!`
                     message.channel.send(msg)

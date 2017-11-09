@@ -21,7 +21,7 @@ exports.run = (client, message, args, config) => {
                     message.channel.send(msg)
                     return;
                 }
-
+                dbgMsg += body;
                 if(body==="True"){
                   msg += `\n:x: This user is listed on DiscordBans! :x:`
                 } else if (body==="False"){

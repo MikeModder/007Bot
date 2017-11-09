@@ -15,17 +15,17 @@ exports.run = (client, message, args, config) => {
 
         if(true){
             let request = require('request')
-            request.post('https://bans.discordlist.net/api',{ form: { version: 3, userid: usr.id, token: config.dbans.key } }, (err, http, body) => {
+            request.post('https://bans.discordlist.net/api',{ form: {userid: usr.id, token: config.dbans.key } }, (err, http, body) => {
                 if(err && http.statusCode !== 200){
-                    msg += `There was an error checking DBans!`
+                    msg += `\nThere was an error checking DBans!`
                     message.channel.send(msg)
                     return;
                 }
 
-                if(body !== "True" && body !== "False"){
-                    body = JSON.parse(body)
-                    msg += `\nThis user is on the DBans list!`
-                    msg += `\nReason: ${body[3]}`
+                if(body==="True"){
+                  msg += `\n:x: This user is listed on DiscordBans! :x:`
+                } else if (body==="False"){
+                  msg += `\nThis is user is not listed on DiscordBans!`
                 }
 
             })

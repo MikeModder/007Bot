@@ -14,7 +14,7 @@ exports.run = (client, message, args, config) => {
         `Username: ${usr.user.username}\n`+
         `ID: ${usr.id}`
 
-        if(true){
+        if(1===1){
             let request = require('request')
             request.get('https://bans.discordlist.net/api',{ form: {userid: usr.id, token: config.dbans.key } }, (err, http, body) => {
                 if(err || http.statusCode !== 200){

@@ -1,6 +1,7 @@
 const discord = require("discord.js");
 const client = new discord.Client();
-const config = require("./config.json");
+const enmap = require("enmap");
+const enmapLevel = require("enmap-level")
 
 client.on("ready", () => {
   //console.log("007Bot ready! Serving "+client.users.size+" users in "+client.guilds.size+" servers!");
@@ -8,6 +9,8 @@ client.on("ready", () => {
   //client.user.setGame(`Say ${config.prefix}help for help! | `+client.guilds.size+' servers | '+client.users.size+' users.');
   client.user.setGame(`Say ${config.prefix}help for help! | In ${client.guilds.size} servers | ${client.users.size} users.`)
 });
+
+client.config = require('./config.json')
 
 client.on("message", message => {
     if(message.author.bot) return;

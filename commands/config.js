@@ -1,6 +1,6 @@
-exports.run = (client, message, args, config) => {
-    
-    if(!message.author.id===config.owner) return message.channel.send(":x: You don't have permission to do that!");
+exports.run = (client, message, args) => {
+
+    if(message.author.id!=config.owner) return message.channel.send(":x: You don't have permission to do that!");
 
     switch(args[0]){
         case "set":
@@ -8,17 +8,17 @@ exports.run = (client, message, args, config) => {
                 case "allow_invites":
                     switch(args[2]){
                         case "true":
-                            config.allowInvite = true;
+                            client.config.invtes.allowInvite = true;
                             message.channel.send(":white_check_mark: Ok, users can now use the invite command. Make sure you have an invite set in the config!")
                             return;
                         case "false":
-                            config.allowInvite = false;
+                            client.config.invites.allowInvite = false;
                             message.channel.send(":white_check_mark: Ok, users can't use the invite command!");
                             return;
                         default:
                             message.channel.send(":x: You must use either `true` or `false` for this option!");
                             return;
-                    }    
+                    }
                 default:
                     message.channel.send(":x: You need to pick a option to change!\nValid options are: `allow_invites`");
                     return;

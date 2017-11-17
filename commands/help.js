@@ -2,37 +2,41 @@ exports.run = (client, message, args) => {
     switch(args[0]){
         case "kick":
             message.channel.send("Usage:\n"+
-            "```"+config.prefix+"kick [@user] [reason]```"+
+            "```"+client.config.prefix+"kick [@user] [reason]```"+
             "Kicks the (first) mentioned user.")
             return;
         case "ban":
             message.channel.send("Usage:\n"+
-            "```"+config.prefix+"ban [@user] [reason]```"+
+            "```"+client.config.prefix+"ban [@user] [reason]```"+
             "Bans the (first) mentioned user.")
             return;
         case "info":
             message.channel.send("Usage:\n"+
-            "```"+config.prefix+"info (@user)```"+
+            "```"+client.config.prefix+"info (@user)```"+
             "Shows info about the tagged user. If no user is tagged, the authors info is shown.")
             return;
         case "reload":
             message.channel.send("Usage:\n"+
-            "```"+config.prefix+"reload [command]```"+
+            "```"+client.config.prefix+"reload [command]```"+
             "Reloads the given command. Requires bot ownership.")
             return;
         case "config":
             message.channel.send("Usage:\n"+
-            "```"+config.prefix+"config [set/view] [option] [value]```"+
+            "```"+client.config.prefix+"config [set/view] [option] [value]```"+
             "Sets/displays the value of the config option.")
             return;
+          case "tag":
+            message.channel.send("Usage:\n"+
+            `\`\`\`${client.config.prefix}tag [create/info/tag name] [tag name/tag content]`)
         default:
             message.channel.send("**Available Commands**\n"+
-            "```"+config.prefix+"kick\n"+
-            config.prefix+"kick\n"+
-            config.prefix+"ban\n"+
-            config.prefix+"info\n"+
-            config.prefix+"config\n"+
-            config.prefix+"reload```")
+            "```"+client.config.prefix+"kick\n"+
+            client.config.prefix+"kick\n"+
+            client.config.prefix+"ban\n"+
+            client.config.prefix+"info\n"+
+            client.config.prefix+"config\n"+
+            client.config.prefix+"tag\n"+
+            client.config.prefix+"reload```")
             return;
 
     }

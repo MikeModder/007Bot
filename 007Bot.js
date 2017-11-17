@@ -14,7 +14,10 @@ client.ignores = new enmap({provider: new enmapLevel({name: "ignores"})});
 
 client.tags.defer.then(() => {
   console.log(`[TAGS] ${client.tags.size} tags loaded!`)
-})
+});
+client.ignores.defer.then(() => {
+  console.log(`[INGORES] ${client.ignores.size} users on the list.`)
+});
 
 client.on("message", message => {
     let id = message.author.id;

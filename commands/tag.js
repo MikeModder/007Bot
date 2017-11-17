@@ -70,7 +70,19 @@ exports.run = (client, message, args) => {
       }
 
       tag = client.tags.get(args[0]);
-      message.channel.send(`Content of tag:\n${tag.content}`)
+      message.channel.send(`Content of tag:\n${script(tag.content)}`)
       break;
   }
+  
+  function script(input){
+    let finished = input.replace("{authTag}", message.author.tag);
+    finished = finished.replace("{authID}", message.author.id);
+    finished = finished.replace("{guildName}", message.guild.name);
+    finished = finished.replace("{today}", moment().format("DD.MM.YYYY"));
+    finished = finished.replace("{randUser}", message.guild.members.random().tag);
+    finished = finished.replace("{guildOwnerTag}", message.guild.owner.user.tag);
+    finished = finished.replace("{guildOwnerID}", message.guild.ownerID);
+    return finished;
+  }
+  
 };

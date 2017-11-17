@@ -37,7 +37,7 @@ exports.run = (client, message, args) => {
       message.channel.send('Coming soon:tm:');
       break;
     case "delete":
-      message.channel.send('Coming soon:tm');
+      message.channel.send('Coming soon:tm:');
       break;
     case "info":
       //Get info about a tag

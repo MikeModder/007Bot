@@ -6,24 +6,29 @@ exports.run = (client, message, args) => {
 
   switch (args[0]) {
     case "create":
-      //create a tags
+      //create a tag
       if(client.tags.get(args[1])){
         message.channel.send(':x: That tag already exists!');
         break;
       }
-      let tagData = [];
+
       let moment = require('moment');
       args.shift();
       args.shift();
-      tagData.author = [];
-      tagData.author.tag = message.author.tag;
-      tagData.author.id = message.author.id;
-      tagData.content = args.join(" "); //erase the first arg and join the rest
-      tagData.createdAt = []
-      tagData.createdAt.hr = moment().format('MMMM Do YYYY, h:mm:ss a'); //current date and time
-      tagData.createdAt.cpu = moment().format('YYYYMMDD'); //used for (time ago) in info subcommand
-      let tagJSON = JSON.stringify(tagData);
-      client.tags.set(tag, tagJSON);
+
+      const tagData = {
+        author: {
+          tag: message.author.tag,
+          id: message.author.id
+        },
+        content: args.join(" "),
+        createdAt: {
+          hr: moment().format('MMMM Do YYYY, h:mm:ss a'),
+          cpu: moment().format('YYYYMMDD')
+        }
+      }
+
+      client.tags.set(tagName, tagData);
       message.channel.send(`:white_check_mark: Tag \`${tagName}\` created!`)
       break;
     case "edit":

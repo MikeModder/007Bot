@@ -1,4 +1,4 @@
-exports.run = (client, message, args, config) => {
+exports.run = (client, message, args) => {
     //message.channel.send("007Bot: info placeholder!")
     if(message.mentions.members.size === 0){
         let usr = message.author;
@@ -14,7 +14,7 @@ exports.run = (client, message, args, config) => {
         `Username: ${usr.user.username}\n`+
         `ID: ${usr.id}`
 
-        if(1===1){
+        /*if(1===1){
             let request = require('request')
             request.get('https://bans.discordlist.net/api',{ form: {userid: usr.id, token: config.dbans.key } }, (err, http, body) => {
                 if(err || http.statusCode !== 200){
@@ -31,10 +31,10 @@ exports.run = (client, message, args, config) => {
 
             })
 
-        }
+        }*/
 
         message.channel.send(msg)
-        message.channel.send(dbgMsg)
+        //message.channel.send(dbgMsg)
         return;
     }
 };

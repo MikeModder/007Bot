@@ -19,11 +19,11 @@ client.tags.defer.then(() => {
 
 client.on("message", message => {
     if(message.author.bot) return;
-    if(message.content.indexOf(config.prefix) !== 0) return;
+    if(message.content.indexOf(client.config.prefix) !== 0) return;
 
     console.log(message.content)
 
-    const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
+    const args = message.content.slice(client.config.prefix.length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
 
     try {

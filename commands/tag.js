@@ -57,7 +57,6 @@ exports.run = (client, message, args) => {
       message.channel.send('Coming soon:tm:');
       break;
     case "delete":
-      message.channel.send('Coming soon:tm:');
       if(!client.tags.has(tagName)){
         message.channel.send(':x: You can\'t delete a tag that doesn\'t exist!');
         break;

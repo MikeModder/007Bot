@@ -11,6 +11,11 @@ client.on("ready", () => {
 });
 
 client.config = require('./config.json');
+client.tags = new enmap({provider: new enmapLevel({name: "tags"}}))
+
+client.tags.defer.then(() => {
+  console.log(`[TAGS] ${client.tags.size} tags loaded!`)
+})
 
 client.on("message", message => {
     if(message.author.bot) return;

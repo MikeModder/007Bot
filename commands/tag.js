@@ -31,7 +31,7 @@ exports.run = (client, message, args) => {
           tag: message.author.tag,
           id: message.author.id
         },
-        content: args.join(" "),
+        content: content,
         createdAt: {
           hr: moment().format('MMMM Do YYYY, h:mm:ss a'),
           cpu: moment().format('YYYYMMDD')

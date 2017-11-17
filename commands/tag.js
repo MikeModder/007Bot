@@ -2,6 +2,7 @@ exports.run = (client, message, args) => {
 
   let subCmd = args[0];
   let tagName = args[1];
+  let tag;
 
   switch (args[0]) {
     case "create":
@@ -34,7 +35,7 @@ exports.run = (client, message, args) => {
       break;
     case "info":
       //Get info about a tag
-      let tag = client.tags.get(args[0]);
+      tag = client.tags.get(args[0]);
       let agoTxt = moment(tag.createdAt.cpu, "YYYYMMDD").fromNow();
       if(!tag){
         message.channel.send(`:x: The tag \`${args[0]}\` was not found!`)
@@ -45,7 +46,7 @@ exports.run = (client, message, args) => {
 
     default:
       //display a tag
-      let tag = client.tags.get(args[0]);
+      tag = client.tags.get(args[0]);
       if(!tag){
         message.channel.send(':x: That tag wasn\'t found!');
         break;

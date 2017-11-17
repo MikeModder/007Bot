@@ -1,5 +1,7 @@
 exports.run = (client, message, args) => {
 
+  const moment = require('moment');
+
   let subCmd = args[0];
   let tagName = args[1];
   let tag;
@@ -12,7 +14,6 @@ exports.run = (client, message, args) => {
         break;
       }
 
-      let moment = require('moment');
       args.shift();
       args.shift();
 

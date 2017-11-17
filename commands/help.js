@@ -27,7 +27,8 @@ exports.run = (client, message, args) => {
             return;
           case "tag":
             message.channel.send("Usage:\n"+
-            `\`\`\`${client.config.prefix}tag [create/info/tag name] [tag name/tag content]`)
+            `\`\`\`${client.config.prefix}tag [create/info/tag name] [tag name/tag content]\`\`\``)
+            break;
         default:
             message.channel.send("**Available Commands**\n"+
             "```"+client.config.prefix+"kick\n"+

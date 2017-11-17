@@ -43,6 +43,7 @@ exports.run = (client, message, args) => {
       //Get info about a tag
       if(!client.tags.has(tagName)){
         message.channel.send(`:x: The tag \`${tagName}\` was not found!`)
+        break;
       }
 
       tag = client.tags.get(tagName);
@@ -50,6 +51,7 @@ exports.run = (client, message, args) => {
       message.channel.send(`Info about tag (${tagName}):\n`+
       `Author: ${tag.author.tag} (ID: ${tag.author.id})\n`+
       `Created at: ${tag.createdAt.hr} (${agoTxt})`)
+      break;
 
     default:
       //display a tag

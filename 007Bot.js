@@ -10,7 +10,7 @@ client.on("ready", () => {
   client.user.setGame(`Say ${config.prefix}help for help! | In ${client.guilds.size} servers | ${client.users.size} users.`)
 });
 
-client.config = require('./config.json')
+client.config = require('./config.json');
 
 client.on("message", message => {
     if(message.author.bot) return;

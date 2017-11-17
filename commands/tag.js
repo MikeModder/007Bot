@@ -18,7 +18,7 @@ exports.run = (client, message, args) => {
         message.channel.send(':x: Don\'t mention `@here` or `@everyone` in your tag!');
         break;
       }
-      
+
       if(message.mentions.size > 0){
         message.channel.send(':x: Don\'t mention people through the bot!');
         break;
@@ -28,12 +28,12 @@ exports.run = (client, message, args) => {
       args.shift();
 
       let content = args.join(" ");
-      
+
       if(!content || content === " "){
         message.channel.send(':x: You must specify the content for your tag!')
         break;
       }
-      
+
       content = content.replace("@here", "(at)here");
       content = content.replace("@everyone", "(at)everyone");
 
@@ -58,6 +58,20 @@ exports.run = (client, message, args) => {
       break;
     case "delete":
       message.channel.send('Coming soon:tm:');
+      if(!client.tags.has(tagName)){
+        message.channel.send(':x: You can\'t delete a tag that doesn\'t exist!');
+        break;
+      }
+
+      tag = client.tags.get(tagName)
+
+      if(tag.author.id !== message.author.id){
+        message.channel.send(':x: You can\'t delete a tag that isn\'t yours!');
+        break;
+      }
+
+      client.tags.delete(tagName)
+      message.channel.send(':white_check_mark: The tag was deleted!')
       break;
     case "info":
       //Get info about a tag
@@ -78,7 +92,7 @@ exports.run = (client, message, args) => {
       if(!args[0]){
         message.channel.send(`:x: You must specify a tag!`);
         break;
-      } 
+      }
       if(!client.tags.has(args[0])){
         message.channel.send(':x: That tag wasn\'t found!');
         break;
@@ -88,7 +102,7 @@ exports.run = (client, message, args) => {
       message.channel.send(`Content of tag:\n${script(tag.content)}`)
       break;
   }
-  
+
   function script(input){
     let finished = input.replace("{authTag}", message.author.tag);
     finished = finished.replace("{authID}", message.author.id);
@@ -98,5 +112,5 @@ exports.run = (client, message, args) => {
     finished = finished.replace("{guildOwnerID}", message.guild.ownerID);
     return finished;
   }
-  
+
 };

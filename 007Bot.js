@@ -17,11 +17,17 @@ client.tags.defer.then(() => {
 })
 
 client.on("message", message => {
+    let id = message.author.id;
     if(message.author.bot) return;
     if(message.content.indexOf(client.config.prefix) !== 0) return;
+    if(client.ignores.has(id)){
+      message.channel.send(`Sorry, but the owner has restricted you from using ${client.user.usernames}'s commands.\nThe following reason was given: \`${client.ignores.get(id).reason}\``)
+      return;
+    }
 
     const args = message.content.slice(client.config.prefix.length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
+
 
     try {
       let commandFile = require(`./commands/${command}.js`);

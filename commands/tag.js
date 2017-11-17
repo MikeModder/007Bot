@@ -31,6 +31,7 @@ exports.run = (client, message, args) => {
       
       if(!content || content === " "){
         message.channel.send(':x: You must specify the content for your tag!')
+        break;
       }
       
       content = content.replace("@here", "(at)here");

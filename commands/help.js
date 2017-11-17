@@ -1,4 +1,4 @@
-exports.run = (client, message, args, config) => {
+exports.run = (client, message, args) => {
     switch(args[0]){
         case "kick":
             message.channel.send("Usage:\n"+

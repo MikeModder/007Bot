@@ -1,6 +1,6 @@
 exports.run = (client, message, args) => {
 
-    if(message.author.id!=config.owner) return message.channel.send(":x: You don't have permission to do that!");
+    if(message.author.id!==config.owner) return message.channel.send(":x: You don't have permission to do that!");
 
     switch(args[0]){
         case "set":

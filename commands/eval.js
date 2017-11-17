@@ -1,4 +1,4 @@
-exports.run = (client, message, args, config) => {
+exports.run = (client, message, args) => {
 
 
 
@@ -9,7 +9,7 @@ exports.run = (client, message, args, config) => {
 		return text;
 	}
 
-	if(message.author.id !== config.owner){
+	if(message.author.id !== client.config.owner){
 		message.channel.send(":x: You don't have permission to run that command!")
 		return;
 	}

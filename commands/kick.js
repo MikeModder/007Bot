@@ -1,5 +1,5 @@
-exports.run = (client, message, [mention, ...reason], config) => {
-    if(!message.member.permissions.has('KICK_MEMBERS') || !message.author.id === config.owner){
+exports.run = (client, message, [mention, ...reason]) => {
+    if(!message.member.permissions.has('KICK_MEMBERS') || !message.author.id === client.config.owner){
         message.channel.send(":x: You don't have permission to run that command!")
         return;
     }

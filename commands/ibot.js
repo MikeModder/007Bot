@@ -1,4 +1,4 @@
-exports.run = (client, message, args, config) => {
+exports.run = (client, message, args) => {
     let request = require('request')
     request('http://ibot.idroid.me/api/bot/stats', (err, http, body) => {
         if(err){

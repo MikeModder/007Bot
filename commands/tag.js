@@ -22,6 +22,10 @@ exports.run = (client, message, args) => {
       args.shift();
       args.shift();
 
+      let content = args.join(" ");
+      content = content.replace("@here", "(at)here");
+      content = content.replace("@everyone", "(at)everyone");
+
       const tagData = {
         author: {
           tag: message.author.tag,

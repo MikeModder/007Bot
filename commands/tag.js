@@ -64,6 +64,10 @@ exports.run = (client, message, args) => {
 
     default:
       //display a tag
+      if(!args[0]){
+        message.channel.send(`:x: You must specify a tag!`);
+        break;
+      } 
       if(!client.tags.has(args[0])){
         message.channel.send(':x: That tag wasn\'t found!');
         break;

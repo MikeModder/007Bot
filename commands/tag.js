@@ -28,6 +28,11 @@ exports.run = (client, message, args) => {
       args.shift();
 
       let content = args.join(" ");
+      
+      if(!content || content === " "){
+        message.channel.send(':x: You must specify the content for your tag!')
+      }
+      
       content = content.replace("@here", "(at)here");
       content = content.replace("@everyone", "(at)everyone");
 

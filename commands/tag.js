@@ -79,7 +79,7 @@ exports.run = (client, message, args) => {
     finished = finished.replace("{authID}", message.author.id);
     finished = finished.replace("{guildName}", message.guild.name);
     finished = finished.replace("{today}", moment().format("DD.MM.YYYY"));
-    finished = finished.replace("{randUser}", message.guild.members.random().tag);
+    finished = finished.replace("{randUser}", message.guild.members.random(1).tag);
     finished = finished.replace("{guildOwnerTag}", message.guild.owner.user.tag);
     finished = finished.replace("{guildOwnerID}", message.guild.ownerID);
     return finished;

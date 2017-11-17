@@ -22,7 +22,7 @@ exports.run = (client, message, args) => {
       tagData.createdAt.hr = moment().format('MMMM Do YYYY, h:mm:ss a'); //current date and time
       tagData.createdAt.cpu = moment().format('YYYYMMDD'); //used for (time ago) in info subcommand
       let tagJSON = JSON.stringify(tagData);
-      client.tags.set(tagName, tagJSON);
+      client.tags.set(tag, tagJSON);
       message.channel.send(`:white_check_mark: Tag \`${tagName}\` created!`)
       break;
     case "edit":
@@ -34,8 +34,9 @@ exports.run = (client, message, args) => {
       break;
     case "info":
       //Get info about a tag
+      let tag = client.tags.get(args[0]);
       let agoTxt = moment(tag.createdAt.cpu, "YYYYMMDD").fromNow();
-      if(!client.tags.get(args[0])){
+      if(!tag){
         message.channel.send(`:x: The tag \`${args[0]}\` was not found!`)
       }
       message.channel.send(`Info about tag (${args[0]}):\n`+
@@ -44,7 +45,8 @@ exports.run = (client, message, args) => {
 
     default:
       //display a tag
-      if(!client.tags.get(args[0])){
+      let tag = client.tags.get(args[0]);
+      if(!tag){
         message.channel.send(':x: That tag wasn\'t found!');
         break;
       }

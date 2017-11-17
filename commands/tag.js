@@ -14,6 +14,11 @@ exports.run = (client, message, args) => {
         break;
       }
 
+      if(message.mentions.everyone){
+        message.channel.send(':x: Don\'t mention `@here` or `@everyone` in your tag!');
+        break;
+      }
+
       args.shift();
       args.shift();
 

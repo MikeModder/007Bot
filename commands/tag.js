@@ -34,9 +34,8 @@ exports.run = (client, message, args) => {
       break;
     case "info":
       //Get info about a tag
-      let tag = client.tags.get(args[0]);
       let agoTxt = moment(tag.createdAt.cpu, "YYYYMMDD").fromNow();
-      if(!tag){
+      if(!client.tags.get(args[0])){
         message.channel.send(`:x: The tag \`${args[0]}\` was not found!`)
       }
       message.channel.send(`Info about tag (${args[0]}):\n`+
@@ -45,8 +44,7 @@ exports.run = (client, message, args) => {
 
     default:
       //display a tag
-      let tag = client.tags.get(args[0]);
-      if(!tag){
+      if(!client.tags.get(args[0])){
         message.channel.send(':x: That tag wasn\'t found!');
         break;
       }

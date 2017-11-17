@@ -23,7 +23,7 @@ exports.run = (client, message, args) => {
       tagData.createdAt.cpu = moment().format('YYYYMMDD'); //used for (time ago) in info subcommand
       let tagJSON = JSON.stringify(tagData);
       client.tags.set(tagName, tagJSON);
-      message.channel.send(`:white_check_mark: Tag \`${args[0]}\` created!`)
+      message.channel.send(`:white_check_mark: Tag \`${tagName}\` created!`)
       break;
     case "edit":
       //edit a tag

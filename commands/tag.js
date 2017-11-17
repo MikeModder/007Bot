@@ -18,6 +18,11 @@ exports.run = (client, message, args) => {
         message.channel.send(':x: Don\'t mention `@here` or `@everyone` in your tag!');
         break;
       }
+      
+      if(message.mentions.size > 0){
+        message.channel.send(':x: Don\'t mention people through the bot!');
+        break;
+      }
 
       args.shift();
       args.shift();

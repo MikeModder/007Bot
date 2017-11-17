@@ -53,11 +53,13 @@ exports.run = (client, message, args) => {
 
     default:
       //display a tag
+      tag = client.tags.get(args[0]);
+
       if(!client.tags.has(tagName)){
         message.channel.send(':x: That tag wasn\'t found!');
         break;
       }
-      tag = client.tags.get(args[0]);
+
       message.channel.send(`Content of tag:\n${tag.content}`)
       break;
   }

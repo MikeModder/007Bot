@@ -9,7 +9,7 @@ exports.run = (client, message, args) => {
   switch (args[0]) {
     case "create":
       //create a tag
-      if(client.tags.get(args[1])){
+      if(client.tags.has(tagName)){
         message.channel.send(':x: That tag already exists!');
         break;
       }
@@ -43,17 +43,17 @@ exports.run = (client, message, args) => {
       //Get info about a tag
       tag = client.tags.get(tagName);
       let agoTxt = moment(tag.createdAt.cpu, "YYYYMMDD").fromNow();
-      if(!tag){
+      if(!client.tags.has(tagName)){
         message.channel.send(`:x: The tag \`${tagName}\` was not found!`)
       }
       message.channel.send(`Info about tag (${tagName}):\n`+
-      `Author: ${tag.author}\n`+
+      `Author: ${tag.author.tag} (ID: ${tag.author.id})\n`+
       `Created at: ${tag.createdAt.hr} (${agoTxt})`)
 
     default:
       //display a tag
       tag = client.tags.get(args[0]);
-      if(!tag){
+      if(!client.tags.has(tagName)){
         message.channel.send(':x: That tag wasn\'t found!');
         break;
       }

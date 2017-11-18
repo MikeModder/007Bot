@@ -113,8 +113,12 @@ exports.run = (client, message, args) => {
   }
 
   function script(input){
+    let joinedArgs = args.join(" ");
+    if(!joinedArgs){
+      joinedArgs = "N/A";
+    }
     let finished = input.replace("{authTag}", message.author.tag);
-    finished = finished.replace("{args}", args.join(" "));
+    finished = finished.replace("{args}", joinedArgs);
     finished = finished.replace("{authID}", message.author.id);
     finished = finished.replace("{guildName}", message.guild.name);
     finished = finished.replace("{today}", moment().format("DD.MM.YYYY"));

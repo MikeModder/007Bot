@@ -31,7 +31,7 @@ exports.run = (client, message, args) => {
       }
 
       client.ignores.set(id, igData);
-      message.channel.send(:white_check_mark: User with ID \`${id}\` will now be ignored!`)
+      message.channel.send(`:white_check_mark: User with ID \`${id}\` will now be ignored!`)
 
       break;
     case "remove":

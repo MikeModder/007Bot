@@ -86,6 +86,15 @@ exports.run = (client, message, args) => {
       `Created at: ${tag.createdAt.hr} (${agoTxt})`)
       break;
 
+    case "raw":
+    if(!client.tags.has(tagName)){
+      message.channel.send(`:x: The tag \`${tagName}\` was not found!`)
+      break;
+    }
+
+    message.channel.send(`Raw content:\n\`\`\`${client.tags.get(tagName.content)}\`\`\``)
+    break;
+
     default:
       //display a tag
       if(!args[0]){

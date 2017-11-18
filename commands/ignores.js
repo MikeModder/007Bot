@@ -5,7 +5,7 @@ exports.run = (client, message, args) => {
     return;
   }
 
-  let id = message.members.mentions.first() || args[1];
+  let id = message.mentions.members.first().id || args[1];
   console.log(id)
 
   switch (args[0]) {

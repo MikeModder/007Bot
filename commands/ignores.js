@@ -6,7 +6,7 @@ exports.run = (client, message, args) => {
   }
 
   let id;
-  if(message.mentions.members === undefined){
+  if(message.mentions.members.first() === undefined){
     id = args[1];
   } else {
     id = message.mentions.members.first().id;

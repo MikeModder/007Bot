@@ -12,6 +12,8 @@ exports.run = (client, message, args) => {
     id = message.mentions.members.first().id;
   }
 
+
+
   switch (args[0]) {
     case "add":
       //add someone to the ignore list

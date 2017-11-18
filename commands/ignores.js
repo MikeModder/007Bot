@@ -11,7 +11,6 @@ exports.run = (client, message, args) => {
   } else {
     id = message.mentions.members.first().id;
   }
-  console.log(id)
 
   switch (args[0]) {
     case "add":

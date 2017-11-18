@@ -107,12 +107,14 @@ exports.run = (client, message, args) => {
       }
 
       tag = client.tags.get(args[0]);
+      args.shift();
       message.channel.send(`Content of tag:\n${script(tag.content)}`)
       break;
   }
 
   function script(input){
     let finished = input.replace("{authTag}", message.author.tag);
+    finished = finished.replace("{args}", args.join(" "));
     finished = finished.replace("{authID}", message.author.id);
     finished = finished.replace("{guildName}", message.guild.name);
     finished = finished.replace("{today}", moment().format("DD.MM.YYYY"));

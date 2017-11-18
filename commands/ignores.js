@@ -12,7 +12,9 @@ exports.run = (client, message, args) => {
     id = message.mentions.members.first().id;
   }
 
-
+  if(!id){
+    message.channel.send(':x: You must provide an ID or tag a user!');
+  }
 
   switch (args[0]) {
     case "add":

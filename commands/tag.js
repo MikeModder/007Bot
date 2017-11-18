@@ -92,7 +92,7 @@ exports.run = (client, message, args) => {
       break;
     }
 
-    message.channel.send(`Raw content:\n\`\`\`${client.tags.get(tagName.content)}\`\`\``)
+    message.channel.send(`Raw content:\n\`\`\`${client.tags.get(tagName).content}\`\`\``)
     break;
 
     default:

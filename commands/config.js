@@ -9,7 +9,7 @@ exports.run = (client, message, args) => {
                     switch(args[2]){
                         case "true":
                             client.config.invtes.allowInvite = true;
-                            message.channel.send(":white_check_mark: Ok, users can now use the invite command. Make sure you have an invite set in the config!")
+                            message.channel.send(":white_check_mark: Ok, users can now use the invite command. Make sure you have an invite set in the config!");
                             return;
                         case "false":
                             client.config.invites.allowInvite = false;

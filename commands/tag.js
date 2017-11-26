@@ -30,7 +30,7 @@ exports.run = (client, message, args) => {
       let content = args.join(" ");
 
       if(!content || content === " "){
-        message.channel.send(':x: You must specify the content for your tag!')
+        message.channel.send(':x: You must specify the content for your tag!');
         break;
       }
 
@@ -47,10 +47,10 @@ exports.run = (client, message, args) => {
           hr: moment().format('MMMM Do YYYY, h:mm:ss a'),
           cpu: moment().format('YYYYMMDD')
         }
-      }
+      };
 
       client.tags.set(tagName, tagData);
-      message.channel.send(`:white_check_mark: Tag \`${tagName}\` created!`)
+      message.channel.send(`:white_check_mark: Tag \`${tagName}\` created!`);
       break;
     case "edit":
       //edit a tag
@@ -62,20 +62,20 @@ exports.run = (client, message, args) => {
         break;
       }
 
-      tag = client.tags.get(tagName)
+      tag = client.tags.get(tagName);
 
       if(tag.author.id !== message.author.id){
         message.channel.send(':x: You can\'t delete a tag that isn\'t yours!');
         break;
       }
 
-      client.tags.delete(tagName)
-      message.channel.send(':white_check_mark: The tag was deleted!')
+      client.tags.delete(tagName);
+      message.channel.send(':white_check_mark: The tag was deleted!');
       break;
     case "info":
       //Get info about a tag
       if(!client.tags.has(tagName)){
-        message.channel.send(`:x: The tag \`${tagName}\` was not found!`)
+        message.channel.send(`:x: The tag \`${tagName}\` was not found!`);
         break;
       }
 
@@ -83,16 +83,16 @@ exports.run = (client, message, args) => {
       let agoTxt = moment(tag.createdAt.cpu, "YYYYMMDD").fromNow();
       message.channel.send(`Info about tag (${tagName}):\n`+
       `Author: ${tag.author.tag} (ID: ${tag.author.id})\n`+
-      `Created at: ${tag.createdAt.hr} (${agoTxt})`)
+      `Created at: ${tag.createdAt.hr} (${agoTxt})`);
       break;
 
     case "raw":
     if(!client.tags.has(tagName)){
-      message.channel.send(`:x: The tag \`${tagName}\` was not found!`)
+      message.channel.send(`:x: The tag \`${tagName}\` was not found!`);
       break;
     }
 
-    message.channel.send(`Raw content:\n\`\`\`${client.tags.get(tagName).content}\`\`\``)
+    message.channel.send(`Raw content:\n\`\`\`${client.tags.get(tagName).content}\`\`\``);
     break;
 
     default:
@@ -108,7 +108,7 @@ exports.run = (client, message, args) => {
 
       tag = client.tags.get(args[0]);
       args.shift();
-      message.channel.send(`Content of tag:\n${script(tag.content)}`)
+      message.channel.send(`Content of tag:\n${script(tag.content)}`);
       break;
   }
 

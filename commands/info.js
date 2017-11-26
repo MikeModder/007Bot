@@ -4,7 +4,7 @@ exports.run = (client, message, args) => {
         let usr = message.author;
         message.channel.send(`Info about \`${usr.tag}\`:\n`+
         `Username: ${usr.username}\n`+
-        `ID: ${usr.id}`)
+        `ID: ${usr.id}`);
         return;
     } else {
         let usr = message.mentions.members.first();
@@ -12,7 +12,7 @@ exports.run = (client, message, args) => {
 
         let msg = `Info about \`${usr.user.tag}\`:\n`+
         `Username: ${usr.user.username}\n`+
-        `ID: ${usr.id}`
+        `ID: ${usr.id}`;
 
         /*if(1===1){
             let request = require('request')
@@ -33,7 +33,7 @@ exports.run = (client, message, args) => {
 
         }*/
 
-        message.channel.send(msg)
+        message.channel.send(msg);
         //message.channel.send(dbgMsg)
         return;
     }

@@ -1,6 +1,6 @@
 exports.run = (client, message, args) => {
   if(message.author.id !== client.config.owner) {
-    return message.channel.send(":x: You don't have permission to do that!")
+    return message.channel.send(":x: You don't have permission to do that!");
   }
   if(!args || args.size < 1) return message.reply("Must provide a command name to reload.");
   // the path is relative to the *current folder*, so just ./filename.js

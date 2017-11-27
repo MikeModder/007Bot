@@ -28,6 +28,10 @@ client.on("message", message => {
       return;
     }
 
+    if(message.includes('<@318450217802530823>')){
+      message.reply('Hey... <:ping_pong~1:384522816701333506>');
+    }
+
     const args = message.content.slice(client.config.prefix.length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
 

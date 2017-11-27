@@ -29,7 +29,7 @@ client.on("message", message => {
     }
 
     if(message.cleanContent.includes('<@318450217802530823>')){
-      message.reply('Hey... <:ping_pong~1:384522816701333506>');
+      message.channel.send(`Hey... <@${message.author.id}> <:ping_pong~1:384522816701333506>`);
     }
 
     const args = message.content.slice(client.config.prefix.length).trim().split(/ +/g);

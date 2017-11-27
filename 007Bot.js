@@ -28,7 +28,7 @@ client.on("message", message => {
       return;
     }
 
-    if(message.includes('<@318450217802530823>')){
+    if(message.cleanContent.includes('<@318450217802530823>')){
       message.reply('Hey... <:ping_pong~1:384522816701333506>');
     }
 

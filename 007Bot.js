@@ -3,6 +3,8 @@ const client = new discord.Client();
 const enmap = require("enmap");
 const enmapLevel = require("enmap-level");
 
+const grabList = require('./extras/grabbers.json');
+
 client.on("ready", () => {
   console.log(`Bot is ready! Logged in as ${client.user.username}.\nServing ${client.users.size} servers, in ${client.guilds.size} servers.`);
   client.user.setGame(`Say ${client.config.prefix}help for help! | In ${client.guilds.size} servers | ${client.users.size} users.`);
@@ -28,8 +30,16 @@ client.on("message", message => {
       return;
     }
 
-    if(message.cleanContent.includes('<@318450217802530823>')){
-      message.channel.send(`Hey... <@${message.author.id}> <:ping_pong~1:384522816701333506>`);
+    for(var link in grabList.links){
+      if(message.content.includes(link)){
+        if(!message.deletable){
+          message.channel.send(`:warning: User **${message.author.tag}** posted a IP grabbing link!`);
+          return;
+        } else {
+          message.delete();
+          return;
+        }
+      }
     }
 
     const args = message.content.slice(client.config.prefix.length).trim().split(/ +/g);

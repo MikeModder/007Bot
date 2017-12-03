@@ -32,7 +32,7 @@ client.on("message", message => {
 
     for(var link in grabList.links){
       if(message.content.includes(link)){
-        if(!message.deletable){
+        if(!message.deletable || !message.guild.me.permissions.has('MANAGE_MESSAGES')){
           message.channel.send(`:warning: User **${message.author.tag}** posted a IP grabbing link!`);
           return;
         } else {

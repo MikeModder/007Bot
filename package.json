@@ -1,0 +1,28 @@
+{
+  "name": "007bot",
+  "version": "1.0.0",
+  "description": "A WIP Discord bot written in NodeJS using the discord.js library",
+  "main": "007Bot.js",
+  "dependencies": {
+    "discord.js": "^11.2.1",
+    "enmap": "^0.4.2",
+    "enmap-level": "^1.0.0",
+    "moment": "^2.19.3",
+    "request": "^2.83.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node 007Bot.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MikeModder/007Bot.git"
+  },
+  "author": "MikeModder",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MikeModder/007Bot/issues"
+  },
+  "homepage": "https://github.com/MikeModder/007Bot#readme"
+}

@@ -30,18 +30,6 @@ client.on("message", message => {
       return;
     }
 
-    for(var link in grabList.links){
-      if(message.content.includes(link)){
-        if(!message.deletable || !message.guild.me.permissions.has('MANAGE_MESSAGES')){
-          message.channel.send(`:warning: User **${message.author.tag}** posted a IP grabbing link!`);
-          return;
-        } else {
-          message.delete();
-          return;
-        }
-      }
-    }
-
     const args = message.content.slice(client.config.prefix.length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
 

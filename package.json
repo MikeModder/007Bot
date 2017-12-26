@@ -7,8 +7,7 @@
     "discord.js": "^11.2.1",
     "enmap": "^0.4.2",
     "enmap-level": "^1.0.0",
-    "moment": "^2.19.3",
-    "request": "^2.83.0"
+    "moment": "^2.19.3"
   },
   "devDependencies": {},
   "scripts": {

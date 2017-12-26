@@ -7,7 +7,9 @@
     "discord.js": "^11.2.1",
     "enmap": "^0.4.2",
     "enmap-level": "^1.0.0",
-    "moment": "^2.19.3"
+    "moment": "^2.19.3",
+    "qr-image": "^3.2.0",
+    "validator": "^9.2.0"
   },
   "devDependencies": {},
   "scripts": {

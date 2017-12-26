@@ -3,8 +3,6 @@ const client = new discord.Client();
 const enmap = require("enmap");
 const enmapLevel = require("enmap-level");
 
-const grabList = require('./extras/grabbers.json');
-
 client.on("ready", () => {
   console.log(`Bot is ready! Logged in as ${client.user.username}.\nServing ${client.users.size} servers, in ${client.guilds.size} servers.`);
   client.user.setGame(`Say ${client.config.prefix}help for help! | In ${client.guilds.size} servers | ${client.users.size} users.`);
@@ -36,9 +34,7 @@ client.on("message", message => {
     try {
       let commandFile = require(`./commands/${command}.js`);
       commandFile.run(client, message, args);
-    } catch (err) {
-      console.error(err);
-    }
+    } catch (err) {}
 });
 
 client.login(client.config.token);

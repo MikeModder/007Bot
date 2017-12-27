@@ -4,6 +4,7 @@
   "description": "A WIP Discord bot written in NodeJS using the discord.js library",
   "main": "007Bot.js",
   "dependencies": {
+    "decache": "^4.3.0",
     "discord.js": "^11.2.1",
     "enmap": "^0.4.2",
     "enmap-level": "^1.0.0",

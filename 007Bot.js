@@ -1,12 +1,39 @@
-const discord = require("discord.js");
+const discord = require('discord.js');
 const client = new discord.Client();
-const enmap = require("enmap");
-const enmapLevel = require("enmap-level");
+const enmap = require('enmap');
+const enmapLevel = require('enmap-level');
 const moment = require('moment');
+const { readdir } = require('fs');
 
 client.config = require('./config.json');
-client.tags = new enmap({provider: new enmapLevel({name: "tags"})});
-client.ignores = new enmap({provider: new enmapLevel({name: "ignores"})});
+client.tags = new enmap({provider: new enmapLevel({name: 'tags'})});
+client.ignores = new enmap({provider: new enmapLevel({name: 'ignores'})});
+
+client.commands = new enmap();
+client.aliases = new enmap();
+
+client.tags.defer.then(() => {
+  console.log(`[TAGS] ${client.tags.size} tags loaded!`);
+});
+client.ignores.defer.then(() => {
+  console.log(`[INGORES] ${client.ignores.size} users on the list.`);
+});
+
+const categories = client.config.categories;
+
+for(let i = 0; i < categories.length; i++){
+  readdir(`./commands/${categories[i]}`, (err, files) => {
+    console.log(`[COMMANDS] Loading ${files.length} commands in category ${categories[i]}...`);
+
+    files.forEach((f) => {
+      let command = require(`./commands/${categories[i]}/${f}`);
+      command.cfg.category = categories[i];
+      client.commands.set(command.cfg.name, command);
+      command.cfg.aliases.forEach((a) => { client.aliases.set(a, command.cfg.name); });
+    });
+
+  });
+}
 
 client.on("ready", () => {
   console.log(`Bot is ready! Logged in as ${client.user.username}.\nServing ${client.users.size} servers, in ${client.guilds.size} servers.`);
@@ -20,29 +47,27 @@ client.on("ready", () => {
   client.user.setGame(`Say ${client.config.prefix}help for help! | In ${client.guilds.size} servers | ${client.users.size} users.`);
 });
 
-client.tags.defer.then(() => {
-  console.log(`[TAGS] ${client.tags.size} tags loaded!`);
-});
-client.ignores.defer.then(() => {
-  console.log(`[INGORES] ${client.ignores.size} users on the list.`);
-});
-
 client.on("message", message => {
-    let id = message.author.id;
-    if(message.author.bot) return;
-    if(message.content.indexOf(client.config.prefix) !== 0) return;
-    if(client.ignores.has(id)){
-      message.channel.send(`Sorry, but the owner has restricted you from using ${client.user.username}'s commands.\nThe following reason was given: \`${client.ignores.get(id).reason}\``);
-      return;
-    }
+    
+  const args = message.content.slice(client.config.prefix.length).trim().split(/ +/g);
+  const command = args.shift().toLowerCase();
 
-    const args = message.content.slice(client.config.prefix.length).trim().split(/ +/g);
-    const command = args.shift().toLowerCase();
+  //Do we have that command? If not, don't do anything
+  if(!client.commands.has(command)) return;
 
-    try {
-      let commandFile = require(`./commands/${command}.js`);
-      commandFile.run(client, message, args);
-    } catch (err) { console.log(err); }
+  //Ignore bots, and those on the ignore list
+  let id = message.author.id;
+  if(message.author.bot) return;
+  if(message.content.indexOf(client.config.prefix) !== 0) return;
+  if(client.ignores.has(id)){
+    message.channel.send(`Sorry, but the owner has restricted you from using ${client.user.username}'s commands.\nThe following reason was given: \`${client.ignores.get(id).reason}\``);
+    return;
+  }
+
+  //We have that command and the user isn't ignored/a bot!
+  let cmd = client.commands.get(command) || client.commands.get(client.aliases.get(command));
+  if(!cmd.cfg.public && id !== client.config.owner) return message.channel.send(`:x: You don't have permissoin to run that command!`);
+  cmd.run(client, message, args);
 });
 
 client.on('guildCreate', (guild) => {

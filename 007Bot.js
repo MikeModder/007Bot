@@ -12,7 +12,7 @@ client.on("ready", () => {
   console.log(`Bot is ready! Logged in as ${client.user.username}.\nServing ${client.users.size} servers, in ${client.guilds.size} servers.`);
   if(client.config.logs.enabled){
     client.addLog = (text) => {
-      client.guilds.get(client.config.logs.channelId).send(`[${moment().format('lll')}] ${text}`);
+      client.channels.get(client.config.logs.channelId).send(`[${moment().format('lll')}] ${text}`);
     };
   }
   client.addLog(`Bot started!`);

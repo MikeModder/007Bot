@@ -12,7 +12,8 @@ client.on("ready", () => {
   console.log(`Bot is ready! Logged in as ${client.user.username}.\nServing ${client.users.size} servers, in ${client.guilds.size} servers.`);
   if(client.config.logs.enabled){
     client.addLog = (text) => {
-      client.channels.get(client.config.logs.channelId).send(`[${moment().format('lll')}] ${text}`);
+      cleanedText = text.replace('@', '');
+      client.channels.get(client.config.logs.channelId).send(`[${moment().format('lll')}] ${cleanedText}`);
     };
   }
   client.addLog(`Bot started!`);

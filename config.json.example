@@ -4,7 +4,7 @@
     "prefix": "]",
     "logs": {
         "enabled": false,
-        "channel": "channel id"
+        "channelId": "channel id"
     },
     "invites": {
         "allowInvite": false,

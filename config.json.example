@@ -2,6 +2,10 @@
     "token": "BOT-TOKEN",
     "owner": "152541437068705793",
     "prefix": "]",
+    "logs": {
+        "enabled": false,
+        "channel": "channel id"
+    },
     "invites": {
         "allowInvite": false,
         "inviteURL": "Coming soon:tm:"

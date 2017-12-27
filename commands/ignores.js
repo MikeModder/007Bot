@@ -39,6 +39,7 @@ exports.run = (client, message, args) => {
       };
 
       client.ignores.set(id, igData);
+      client.addLog(`User \`${id}\` added to ignore list. Reason: \`${igReason}\``);
       message.channel.send(`:white_check_mark: User with ID \`${id}\` will now be ignored!`);
 
       break;
@@ -50,6 +51,7 @@ exports.run = (client, message, args) => {
       }
 
       client.ignores.delete(id);
+      client.addLog(`User \`${id}\` removed from ignore list.`);
       message.channel.send(`:white_check_mark: User with ID \`${id}\` was removed from the ignore list.`);
 
       break;

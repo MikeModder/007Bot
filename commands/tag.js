@@ -50,6 +50,7 @@ exports.run = (client, message, args) => {
       };
 
       client.tags.set(tagName, tagData);
+      client.addLog(`User \`${message.author.tag} (ID: ${message.author.id})\` created tag \`${tagName}\``);
       message.channel.send(`:white_check_mark: Tag \`${tagName}\` created!`);
       break;
     case "edit":
@@ -70,6 +71,7 @@ exports.run = (client, message, args) => {
       }
 
       client.tags.delete(tagName);
+      client.addLog(`User \`${message.author.tag} (ID: ${message.author.id})\` deleted tag \`${tagName}\``);
       message.channel.send(':white_check_mark: The tag was deleted!');
       break;
     case "info":

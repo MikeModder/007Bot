@@ -61,3 +61,11 @@ exports.run = (client, message, args) => {
 
   }
 };
+
+exports.cfg = {
+  name: 'ignores',
+  desc: 'Manage bot ignores.',
+  usage: '{prefix}ignores [remove/add] [@User/ID]',
+  aliases: [],
+  public: false
+};

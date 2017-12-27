@@ -40,3 +40,11 @@ exports.run = (client, message, args) => {
     message.channel.send(":x: If you are seeing this message, report it as a bug immediatly! :x:\nBe sure to include the command that triggered it!");
     return;
 };
+
+exports.cfg = {
+    name: 'config',
+    desc: 'Sets configuration options.',
+    usage: '{prefix}config [set/view] [option] [value]',
+    aliases: [],
+    public: false
+};

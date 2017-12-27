@@ -30,3 +30,11 @@ exports.run = (client, message, args) => {
             }
         });
 };
+
+exports.cfg = {
+    name: 'npm',
+    desc: 'Gets information about the given npm package.',
+    usage: '{prefix}npm [package]',
+    aliases: [],
+    public: true
+};

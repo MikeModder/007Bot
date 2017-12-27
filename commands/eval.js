@@ -26,3 +26,11 @@ exports.run = (client, message, args) => {
   }
 
 };
+
+exports.cfg = {
+	name: 'eval',
+	desc: 'Evaluates the given JavaScript.',
+	usage: '{prefix}eval [code]',
+	aliases: [],
+	public: false
+};

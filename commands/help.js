@@ -42,3 +42,11 @@ exports.run = (client, message, args) => {
 
     }
 };
+
+exports.cfg = {
+    name: 'help',
+    desc: 'Shows help for a given command, or a list of commands.',
+    usage: '{prefix}help [command]',
+    aliases: ['halp'],
+    public: true
+};

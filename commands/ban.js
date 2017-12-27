@@ -18,10 +18,18 @@ exports.run = (client, message, [mention, ...reason]) => {
 
     let fullReason = reason.join(" ") || "No reason given.";
 
-    kMember.send(`You have been banned from the server **${message.guild.name}**\nReason: `+fullReason);;\
+    kMember.send(`You have been banned from the server **${message.guild.name}**\nReason: `+fullReason);
 
     kMember.ban(fullReason).then(member => {
         message.channel.send(`User **${member.user.username}** was banned!`);
         return;
     });
+};
+
+exports.cfg = {
+    name: 'ban',
+    desc: 'Bans the (first) mentioned user.',
+    usage: '{prefix}ban [@User]',
+    aliases: [],
+    public: true
 };

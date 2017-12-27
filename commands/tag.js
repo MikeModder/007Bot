@@ -130,3 +130,11 @@ exports.run = (client, message, args) => {
   }
 
 };
+
+exports.cfg = {
+  name: 'tag',
+  desc: 'Create, edit, and view custom text snippets!',
+  usage: '{prefix}tag [create/info/raw/delete] [tag content/tag name]',
+  aliases: ['t'],
+  public: true
+};

@@ -14,27 +14,15 @@ exports.run = (client, message, args) => {
         `Username: ${usr.user.username}\n`+
         `ID: ${usr.id}`;
 
-        /*if(1===1){
-            let request = require('request')
-            request.get('https://bans.discordlist.net/api',{ form: {userid: usr.id, token: config.dbans.key } }, (err, http, body) => {
-                if(err || http.statusCode !== 200){
-                    msg += `\nThere was an error checking DBans!`
-                    message.channel.send(msg)
-                    return;
-                }
-                dbgMsg += body;
-                if(body==="True"){
-                  msg += `\n:x: This user is listed on DiscordBans! :x:`
-                } else if (body==="False"){
-                  msg += `\nThis is user is not listed on DiscordBans!`
-                }
-
-            })
-
-        }*/
-
         message.channel.send(msg);
-        //message.channel.send(dbgMsg)
         return;
     }
+};
+
+exports.cfg = {
+    name: 'info',
+    desc: 'Shows info about the mentioned user, or the author.',
+    usage: '{prefix}info [@User]',
+    aliases: [],
+    public: true
 };

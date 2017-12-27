@@ -25,3 +25,11 @@ exports.run = (client, message, [mention, ...reason]) => {
         return;
     });
 };
+
+exports.cfg = {
+    name: 'kick',
+    desc: 'Kicks the (first) mentioned user.',
+    usage: '{prefix}kick [@User]',
+    aliases: [],
+    public: true
+};

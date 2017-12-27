@@ -17,4 +17,12 @@ exports.run = (client, message, args) => {
     message.channel.send('Here\'s your QR!', msgAttach);
 
 };
+
+exports.cfg = {
+    name: 'qr',
+    desc: 'Generates a QR code with the given text.',
+    usage: '{prefix}qr [text]',
+    aliases: [],
+    public: true
+};
   

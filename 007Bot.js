@@ -46,12 +46,12 @@ client.on("message", message => {
 });
 
 client.on('guildCreate', (guild) => {
-  client.addLog(`Joined guild \`${guild.name}\` owned by \`${guild.owner.user.username}\` with \`${guild.memberCount}\` members.`);
+  client.addLog(`Joined guild \`${guild.name}\` owned by \`${guild.owner.user.username}\` with \`${guild.memberCount}\` members.\nNow in \`${client.guilds.size}\` servers with \`${client.users.size}\` users.`);
   client.user.setGame(`Say ${client.config.prefix}help for help! | In ${client.guilds.size} servers | ${client.users.size} users.`);
 });
 
 client.on('guildDelete', (guild) => {
-  client.addLog(`Left guild \`${guild.name.replace('@', '')}\` owned by \`${guild.owner.user.tag}\` with \`${guild.memberCount}\` members.`);
+  client.addLog(`Left guild \`${guild.name.replace('@', '')}\` owned by \`${guild.owner.user.tag}\` with \`${guild.memberCount}\` members.\nNow in \`${client.guilds.size}\` servers with \`${client.users.size}\` users.`);
   client.user.setGame(`Say ${client.config.prefix}help for help! | In ${client.guilds.size} servers | ${client.users.size} users.`);
 });
 

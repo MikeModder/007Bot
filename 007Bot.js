@@ -8,6 +8,7 @@ const { readdir } = require('fs');
 client.config = require('./config.json');
 client.tags = new enmap({provider: new enmapLevel({name: 'tags'})});
 client.ignores = new enmap({provider: new enmapLevel({name: 'ignores'})});
+client.afk = new enmap({provider: new enmapLevel({name: 'afk'})});
 
 client.commands = new enmap();
 client.aliases = new enmap();
@@ -36,13 +37,13 @@ for(let i = 0; i < categories.length; i++){
 }
 
 client.on("ready", () => {
-  console.log(`Bot is ready! Logged in as ${client.user.username}.\nServing ${client.users.size} servers, in ${client.guilds.size} servers.`);
+  console.log(`Bot is ready! Logged in as ${client.user.username}.\nServing ${client.users.size} users, in ${client.guilds.size} servers.`);
   if(client.config.logs.enabled){
     client.addLog = (text) => {
       cleanedText = text.replace('@', '');
       client.channels.get(client.config.logs.channelId).send(`[${moment().format('lll')}] ${cleanedText}`);
     };
-  }
+  } else { client.addLog = (t) => {}; }
   client.addLog(`Bot started!`);
   client.user.setGame(`Say ${client.config.prefix}help for help! | In ${client.guilds.size} servers | ${client.users.size} users.`);
 });
@@ -52,17 +53,33 @@ client.on("message", message => {
   const args = message.content.slice(client.config.prefix.length).trim().split(/ +/g);
   const command = args.shift().toLowerCase();
 
-  //Do we have that command? If not, don't do anything
-  if(!client.commands.has(command)) return;
-
   //Ignore bots, and those on the ignore list
   let id = message.author.id;
   if(message.author.bot) return;
-  if(message.content.indexOf(client.config.prefix) !== 0) return;
   if(client.ignores.has(id)){
     message.channel.send(`Sorry, but the owner has restricted you from using ${client.user.username}'s commands.\nThe following reason was given: \`${client.ignores.get(id).reason}\``);
     return;
   }
+
+  //Check if the author was afk, or if thye mentioned an afk user
+  if(client.afk.has(id)){
+    client.afk.delete(id);
+    message.author.send(`Welcome back! Your AFK status has been removed!`);
+  }
+
+  message.mentions.users.forEach((m) => {
+    if(client.afk.has(m.id)){
+      let afkUsr = client.afk.get(m.id);
+      message.channel.send(`**${m.tag}** is AFK: \`\`\`${afkUsr.msg}\`\`\``);
+    } 
+  });
+
+  //Do we have that command? If not, don't do anything
+  //Also check for the prefix
+  if(message.content.indexOf(client.config.prefix) !== 0) return;
+  console.log(command);
+  if(!client.commands.has(command) && !client.aliases.has(command)) return;
+  console.log('hi');
 
   //We have that command and the user isn't ignored/a bot!
   let cmd = client.commands.get(command) || client.commands.get(client.aliases.get(command));

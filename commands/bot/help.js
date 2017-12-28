@@ -3,7 +3,12 @@ exports.run = (client, message, args) => {
     if(!command){
         let msg = `Available commands:\n`;
         client.commands.forEach(cmd => {
-            msg += `\`${cmd.cfg.name}\` - \`${cmd.cfg.desc}\`\n`;
+            //msg += `\`${cmd.cfg.name}\` - \`${cmd.cfg.desc}\`\n`;
+            if(!cmd.cfg.public && message.author.id !== client.config.owner){
+
+            } else {
+                msg += `\`${cmd.cfg.name}\` - \`${cmd.cfg.desc}\`\n`;
+            }
         });
         return message.channel.send(msg);
     }

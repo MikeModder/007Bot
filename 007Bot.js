@@ -77,9 +77,7 @@ client.on("message", message => {
   //Do we have that command? If not, don't do anything
   //Also check for the prefix
   if(message.content.indexOf(client.config.prefix) !== 0) return;
-  console.log(command);
   if(!client.commands.has(command) && !client.aliases.has(command)) return;
-  console.log('hi');
 
   //We have that command and the user isn't ignored/a bot!
   let cmd = client.commands.get(command) || client.commands.get(client.aliases.get(command));

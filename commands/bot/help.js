@@ -1,20 +1,23 @@
 exports.run = (client, message, args) => {
     let command = args[0];
+    const Discord = require('discord.js');
+    let embed = new Discord.RichEmbed();
     if(!command){
-        let msg = `Available commands:\n`;
+        embed.setAuthor('Available commands');
         client.commands.forEach(cmd => {
             //msg += `\`${cmd.cfg.name}\` - \`${cmd.cfg.desc}\`\n`;
             if(!cmd.cfg.public && message.author.id !== client.config.owner){
 
             } else {
-                msg += `\`${cmd.cfg.name}\` - \`${cmd.cfg.desc}\`\n`;
+                //msg += `\`${cmd.cfg.name}\` - \`${cmd.cfg.desc}\`\n`;
+                embed.addField(cmd.cfg.name, cmd.cfg.desc, true);
             }
         });
-        return message.channel.send(msg);
+        return message.channel.send(embed);
     }
-    if(!client.commands.has(command)) return message.channel.send(`:x: \`${command}\` is not a valid command!`);
+    if(!client.commands.has(command) && !client.aliases.has(command)) return message.channel.send(`:x: \`${command}\` is not a valid command or alias!!`);
 
-    let cmdInfo = client.commands.get(command).cfg;
+    let cmdInfo = client.commands.get(command).cfg || client.commands.get(client.aliases.get(command));
     let msg = `Help for command \`${cmdInfo.name}\`:\n`;
     msg += `Description: \`${cmdInfo.desc}\`\n`;
     msg += `Usage: \`${cmdInfo.usage.replace('{prefix}', client.config.prefix)}\`\n`;

@@ -29,7 +29,7 @@ exports.run = (client, message, args) => {
 exports.cfg = {
     name: 'ascii',
     desc: 'Get a random ASCII face.',
-    usage: '{prefix}ascii',
+    usage: '{prefix}ascii [cool/cat]',
     aliases: [ 'face', 'donger' ],
     public: true
 }

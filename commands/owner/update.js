@@ -2,9 +2,10 @@ exports.run = (client, message, args) => {
     let shell = require('shelljs');
 
     let msg;
-    message.channel.send(`Running \`git pull\`, please wait...`)
+    message.channel.send(`Running \`git pull\` and \`npm install\`, please wait...`)
         .then((msg) => {
             shell.exec('git pull');
+            shell.exec('npm install');
             msg.edit(`Complete! Rebooting...`)
                 .then(() => {
                     client.tags.close();

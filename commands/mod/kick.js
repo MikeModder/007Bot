@@ -19,6 +19,7 @@ exports.run = (client, message, [mention, ...reason]) => {
 
     if(kMember.id === message.author.id){
         message.channel.send(':x: Error! You can\'t kick yourself!')
+        return;
     }
 
     let fullReason = reason.join(' ') || 'No reason given.';
@@ -30,7 +31,7 @@ exports.run = (client, message, [mention, ...reason]) => {
         return;
     })
     .catch(e => {
-        message.channel.send(':x: There was an error kicked the user!')
+        message.channel.send(':x: There was an error kicking the user!')
     });
 };
 

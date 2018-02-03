@@ -13,6 +13,8 @@ client.afk = new enmap({provider: new enmapLevel({name: 'afk'})});
 client.commands = new enmap();
 client.aliases = new enmap();
 
+client.commandsRan = 0;
+
 client.tags.defer.then(() => {
   console.log(`[TAGS] ${client.tags.size} tags loaded!`);
 });
@@ -84,6 +86,7 @@ client.on("message", message => {
   //We have that command and the user isn't ignored/a bot!
   let cmd = client.commands.get(command) || client.commands.get(client.aliases.get(command));
   if(!cmd.cfg.public && id !== client.config.owner) return message.channel.send(`:x: You don't have permission to run that command!`);
+  client.commandsRan++;
   cmd.run(client, message, args);
 });
 

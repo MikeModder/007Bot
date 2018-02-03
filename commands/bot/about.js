@@ -7,7 +7,8 @@ exports.run = (client, message, args) => {
     shell.exec('git rev-parse --short HEAD', { silent: true }, (code, out) => {
         embed.setTitle(`About ${client.user.tag}`)
             .addField('Commit ', out, true)
-            .addField('Instance hosted by', client.users.get(client.config.owner).tag)
+            .addField('NodeJS Version', process.versions.node, true)
+            .addField('Instance hosted by', client.users.get(client.config.owner).tag, true)
             .addField('Programmed by', 'mikemodder007#7676 (152541437068705793)');
 
         message.channel.send(embed);

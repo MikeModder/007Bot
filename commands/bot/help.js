@@ -5,11 +5,9 @@ exports.run = (client, message, args) => {
     if(!command){
         embed.setAuthor('Available commands');
         client.commands.forEach(cmd => {
-            //msg += `\`${cmd.cfg.name}\` - \`${cmd.cfg.desc}\`\n`;
             if(!cmd.cfg.public && message.author.id !== client.config.owner){
 
             } else {
-                //msg += `\`${cmd.cfg.name}\` - \`${cmd.cfg.desc}\`\n`;
                 embed.addField(cmd.cfg.name, cmd.cfg.desc, true);
             }
         });

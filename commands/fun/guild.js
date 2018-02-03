@@ -1,6 +1,16 @@
 exports.run = (client, message, args) => {
-  let codeBlock = "```";
-  message.channel.send(`${codeBlock}Info about ${message.guild.name}:\nOwner: ${message.guild.owner.tag}\nMembers: ${message.guild.members.size}\nChannels: ${message.guild.channels.size} ${codeBlock}`);
+  const Discord = require('discord.js');
+  let embed = new Discord.RichEmbed();
+
+  let guild = message.guild;
+
+  embed.setTitle(`Info about ${guild.name}`)
+    .addField('Owner: ', guild.owner.user.tag, true)
+    .addField('Members: ', guild.memberCount, true)
+    .addField('Channels: ', guild.channels.size, true)
+    .addField('Region: ', guild.region, true);
+
+  message.channel.send(embed);
 };
 
 exports.cfg = {

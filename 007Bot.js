@@ -56,12 +56,8 @@ client.on("message", message => {
   //Ignore bots, and those on the ignore list
   let id = message.author.id;
   if(message.author.bot) return;
-  if(client.ignores.has(id)){
-    message.channel.send(`Sorry, but the owner has restricted you from using ${client.user.username}'s commands.\nThe following reason was given: \`${client.ignores.get(id).reason}\``);
-    return;
-  }
 
-  //Check if the author was afk, or if thye mentioned an afk user
+  //Check if the author was afk, or if they mentioned an afk user
   if(client.afk.has(id)){
     client.afk.delete(id);
     message.author.send(`Welcome back! Your AFK status has been removed!`);
@@ -78,6 +74,12 @@ client.on("message", message => {
   //Also check for the prefix
   if(message.content.indexOf(client.config.prefix) !== 0) return;
   if(!client.commands.has(command) && !client.aliases.has(command)) return;
+
+  //Since the command is valid, check if the user is on the ignore list
+  if(client.ignores.has(id)){
+    message.channel.send(`Sorry, but the owner has restricted you from using ${client.user.username}'s commands.\nThe following reason was given: \`${client.ignores.get(id).reason}\``);
+    return;
+  }
 
   //We have that command and the user isn't ignored/a bot!
   let cmd = client.commands.get(command) || client.commands.get(client.aliases.get(command));

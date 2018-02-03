@@ -83,7 +83,7 @@ client.on("message", message => {
 
   //We have that command and the user isn't ignored/a bot!
   let cmd = client.commands.get(command) || client.commands.get(client.aliases.get(command));
-  if(!cmd.cfg.public && id !== client.config.owner) return message.channel.send(`:x: You don't have permissoin to run that command!`);
+  if(!cmd.cfg.public && id !== client.config.owner) return message.channel.send(`:x: You don't have permission to run that command!`);
   cmd.run(client, message, args);
 });
 

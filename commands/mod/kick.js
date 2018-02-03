@@ -35,9 +35,9 @@ exports.run = (client, message, [mention, ...reason]) => {
 };
 
 exports.cfg = {
-    name: 'ban',
-    desc: 'Bans the (first) mentioned user.',
-    usage: '{prefix}ban [@User]',
+    name: 'kick',
+    desc: 'Kick the (first) mentioned user.',
+    usage: '{prefix}kick [@User]',
     aliases: [],
     public: true
 };

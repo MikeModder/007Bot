@@ -1,28 +1,73 @@
 exports.run = (client, message, args) => {
-    //message.channel.send("007Bot: info placeholder!")
-    if(message.mentions.members.size === 0){
-        let usr = message.author;
-        message.channel.send(`Info about \`${usr.tag}\`:\n`+
-        `Username: ${usr.username}\n`+
-        `ID: ${usr.id}`);
-        return;
+    let searchUser = args.join(' ');
+    let RichEmbed = require('discord.js').RichEmbed;
+    let embed = new RichEmbed();
+
+    if(searchUser){
+        let results = getByTag(searchUser.toLowerCase(), message.guild.members);
+
+        if(results.length === 0){
+            message.channel.send(`:x: No user found matching \`${searchUser}\`!`);
+            return;
+        }
+
+        if(results.length > 1){
+            embed.setTitle(`Multiple users matching input!`);
+            results.forEach(r => {
+                let tag =`${r.user.username}#${r.user.discriminator}`;
+                embed.addField('Matched:', tag, true);
+            });
+            return message.channel.send(embed);
+        }
+
+        let id = results[0].user.id;
+        let member = message.guild.members.get(id);
+        let user = message.guild.members.get(id).user;
+        let game;
+        if(message.guild.members.get(id).presence.game){
+            game = message.guild.members.get(id).presence.game.name;
+        }
+
+        embed.setTitle(`Info about ${user.tag}`)
+            .setThumbnail(user.avatarURL)
+            .addField('ID: ', id, true)
+            .addField('Nickname: ', member.nickname ? member.nickname : 'Not set', true)
+            .addField('Playing:', game ? game : 'Nothing', true)
+
+        message.channel.send(embed);
+        
     } else {
-        let usr = message.mentions.members.first();
-        let dbgMsg = "";
+        let id = message.author.id;
+        let member = message.guild.members.get(id);
+        let user = message.guild.members.get(id).user;
+        let game;
+        if(message.guild.members.get(id).presence.game){
+            game = message.guild.members.get(id).presence.game.name;
+        }
 
-        let msg = `Info about \`${usr.user.tag}\`:\n`+
-        `Username: ${usr.user.username}\n`+
-        `ID: ${usr.id}`;
+        embed.setTitle(`Info about ${user.tag}`)
+            .setThumbnail(user.avatarURL)
+            .addField('ID: ', id, true)
+            .addField('Nickname: ', member.nickname ? member.nickname : 'Not set', true)
+            .addField('Playing:', game ? game : 'Nothing', true)
 
-        message.channel.send(msg);
-        return;
+        message.channel.send(embed);
     }
+
 };
 
 exports.cfg = {
     name: 'info',
-    desc: 'Shows info about the mentioned user, or the author.',
-    usage: '{prefix}info [@User]',
+    desc: 'Shows info about the given user, or the author.',
+    usage: '{prefix}info [User#1234]',
     aliases: [],
     public: true
 };
+
+function getByTag(search, members){
+
+    let r = members.filterArray(m => m.user.tag.toLowerCase().includes(search));
+    console.log(r)
+    return r;
+
+}

@@ -87,7 +87,7 @@ client.on("message", message => {
   if(message.content.indexOf(client.config.prefix) !== 0) return;
   if(!client.commands.has(command) && !client.aliases.has(command)){
     let didYouMean = client.match.list(command);
-    if(!didYouMean) return;
+    if(!didYouMean.length > 0) return;
     let dymEmbed = new discord.RichEmbed();
     dymEmbed.setTitle('Did you mean?');
     didYouMean.forEach(d => {

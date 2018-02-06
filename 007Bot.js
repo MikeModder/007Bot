@@ -4,8 +4,12 @@ const enmap = require('enmap');
 const enmapLevel = require('enmap-level');
 const moment = require('moment');
 const { readdir } = require('fs');
+const Matcher = require('did-you-mean');
 
 client.config = require('./config.json');
+client.match = new Matcher();
+client.match.ignoreCase();
+client.match.setThreshold(2);
 client.tags = new enmap({provider: new enmapLevel({name: 'tags'})});
 client.ignores = new enmap({provider: new enmapLevel({name: 'ignores'})});
 client.afk = new enmap({provider: new enmapLevel({name: 'afk'})});
@@ -14,6 +18,7 @@ client.commands = new enmap();
 client.aliases = new enmap();
 
 client.commandsRan = 0;
+client.wolfram = client.config.wolfram.enabled;
 
 client.tags.defer.then(() => {
   console.log(`[TAGS] ${client.tags.size} tags loaded!`);
@@ -32,7 +37,12 @@ for(let i = 0; i < categories.length; i++){
       let command = require(`./commands/${categories[i]}/${f}`);
       command.cfg.category = categories[i];
       client.commands.set(command.cfg.name, command);
-      command.cfg.aliases.forEach((a) => { client.aliases.set(a, command.cfg.name); });
+      command.cfg.aliases.forEach((a) => { 
+        client.aliases.set(a, command.cfg.name);
+        client.match.add(a);
+      });
+
+      client.match.add(command.cfg.name);
     });
 
   });
@@ -75,7 +85,17 @@ client.on("message", message => {
   //Do we have that command? If not, don't do anything
   //Also check for the prefix
   if(message.content.indexOf(client.config.prefix) !== 0) return;
-  if(!client.commands.has(command) && !client.aliases.has(command)) return;
+  if(!client.commands.has(command) && !client.aliases.has(command)){
+    let didYouMean = client.match.list(command);
+    if(!didYouMean) return;
+    let dymEmbed = new discord.RichEmbed();
+    dymEmbed.setTitle('Did you mean?');
+    didYouMean.forEach(d => {
+      dymEmbed.addField('Match:', d.value, true);
+    });
+    message.channel.send(dymEmbed);
+    return;
+  }
 
   //Since the command is valid, check if the user is on the ignore list
   if(client.ignores.has(id)){

@@ -3,6 +3,10 @@
     "owner": "152541437068705793",
     "prefix": "]",
     "categories": ["owner", "mod", "bot", "fun"],
+    "wolfram": {
+        "enabled": false,
+        "appID": "Your APPID"
+    },
     "logs": {
         "enabled": false,
         "channelId": "channel id"

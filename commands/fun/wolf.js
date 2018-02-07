@@ -44,6 +44,6 @@ exports.cfg = {
     name: 'wolf',
     desc: 'Query Wolfram|Alpha',
     usage: '{prefix}wolf [query]',
-    aliases: ['wolfram', 'wrs'],
+    aliases: ['wolfram', 'wr'],
     public: true
 }

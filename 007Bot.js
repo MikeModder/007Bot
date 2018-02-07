@@ -4,12 +4,8 @@ const enmap = require('enmap');
 const enmapLevel = require('enmap-level');
 const moment = require('moment');
 const { readdir } = require('fs');
-const Matcher = require('did-you-mean');
 
 client.config = require('./config.json');
-client.match = new Matcher();
-client.match.ignoreCase();
-client.match.setThreshold(2);
 client.tags = new enmap({provider: new enmapLevel({name: 'tags'})});
 client.ignores = new enmap({provider: new enmapLevel({name: 'ignores'})});
 client.afk = new enmap({provider: new enmapLevel({name: 'afk'})});
@@ -39,10 +35,7 @@ for(let i = 0; i < categories.length; i++){
       client.commands.set(command.cfg.name, command);
       command.cfg.aliases.forEach((a) => { 
         client.aliases.set(a, command.cfg.name);
-        client.match.add(a);
       });
-
-      client.match.add(command.cfg.name);
     });
 
   });
@@ -85,17 +78,7 @@ client.on("message", message => {
   //Do we have that command? If not, don't do anything
   //Also check for the prefix
   if(message.content.indexOf(client.config.prefix) !== 0) return;
-  if(!client.commands.has(command) && !client.aliases.has(command)){
-    let didYouMean = client.match.list(command);
-    if(!didYouMean.length > 0) return;
-    let dymEmbed = new discord.RichEmbed();
-    dymEmbed.setTitle('Did you mean?');
-    didYouMean.forEach(d => {
-      dymEmbed.addField('Match:', d.value, true);
-    });
-    message.channel.send(dymEmbed);
-    return;
-  }
+  if(!client.commands.has(command) && !client.aliases.has(command)) return;
 
   //Since the command is valid, check if the user is on the ignore list
   if(client.ignores.has(id)){

@@ -4,6 +4,10 @@ const enmap = require('enmap');
 const enmapLevel = require('enmap-level');
 const moment = require('moment');
 const { readdir } = require('fs');
+const pmx = require('pmx');
+const probe = pmx.probe();
+
+let commandsPerMinute, guildCounter, memberCounter;
 
 client.config = require('./config.json');
 client.tags = new enmap({provider: new enmapLevel({name: 'tags'})});
@@ -38,6 +42,26 @@ for(let i = 0; i < categories.length; i++){
       });
     });
 
+  });
+}
+
+if(client.config.pmx){
+  commandsPerMinute = probe.meter({
+    name: 'commands/minute',
+    samples: 1,
+    timeframe: 60 * 60
+  });
+  memberCounter = probe.metric({
+    name: 'User count',
+    value: () => {
+      return client.users.size;
+    }
+  });
+  guildCounter = probe.metric({
+    name: 'Guild count',
+    value: () => {
+      return client.guilds.size;
+    }
   });
 }
 
@@ -90,6 +114,7 @@ client.on("message", message => {
   let cmd = client.commands.get(command) || client.commands.get(client.aliases.get(command));
   if(!cmd.cfg.public && id !== client.config.owner) return message.channel.send(`:x: You don't have permission to run that command!`);
   client.commandsRan++;
+  if(client.config.pmx) commandsPerMinute.mark();
   cmd.run(client, message, args);
 });
 

@@ -32,7 +32,7 @@ exports.run = (client, message, args) => {
             .setThumbnail(user.avatarURL)
             .addField('ID: ', id, true)
             .addField('Nickname: ', member.nickname ? member.nickname : 'Not set', true)
-            .addField('Playing:', game ? game : 'Nothing', true)
+            .addField('Playing:', game ? game : 'Nothing', true);
 
         message.channel.send(embed);
         
@@ -49,7 +49,7 @@ exports.run = (client, message, args) => {
             .setThumbnail(user.avatarURL)
             .addField('ID: ', id, true)
             .addField('Nickname: ', member.nickname ? member.nickname : 'Not set', true)
-            .addField('Playing:', game ? game : 'Nothing', true)
+            .addField('Playing:', game ? game : 'Nothing', true);
 
         message.channel.send(embed);
     }
@@ -67,7 +67,6 @@ exports.cfg = {
 function getByTag(search, members){
 
     let r = members.filterArray(m => m.user.tag.toLowerCase().includes(search));
-    console.log(r)
     return r;
 
 }

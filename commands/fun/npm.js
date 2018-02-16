@@ -25,7 +25,6 @@ exports.run = (client, message, args) => {
             if(err.statusCode === 404){
                 message.channel.send(`:x: There is no package named \`${pkgName}\`!`);
             } else {
-                console.log(`[CMD][NPM] Error: ${err}`);
                 message.channel.send(`:x: There was an error trying to get information for the requested package. If you think this is an error, report it to \`mikemodder007#7678\`!`);
             }
         });

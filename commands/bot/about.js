@@ -15,9 +15,9 @@ exports.run = (client, message, args) => {
             .addField('Programmed by', 'mikemodder007#7678 (152541437068705793)');
 
         message.channel.send(embed);
-    })
+    });
 
-}
+};
 
 exports.cfg = {
     name: 'about',

@@ -18,13 +18,13 @@ exports.run = (client, message, args) => {
 
   message.channel.bulkDelete(amount)
     .then(() => {
-      message.channel.send(`:white_check_mark: Successfully deleted \`${amount}\` messages!`)
+      message.channel.send(`:white_check_mark: Successfully deleted \`${amount}\` messages!`);
     })
     .catch((e) => {
-      message.channel.send(':x: There was an error deleting the messages!')
+      message.channel.send(':x: There was an error deleting the messages!');
     });
 
-}
+};
 
 exports.cfg = {
     name: 'purge',

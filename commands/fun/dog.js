@@ -20,7 +20,7 @@ exports.run = (client, message, args) => {
         .catch(e => {
             message.channel.send(`:x: There was an error getting your random dog!`)
         });
-}
+};
 
 exports.cfg = {
     name: 'dog',
@@ -28,4 +28,4 @@ exports.cfg = {
     usage: '{prefix}dog',
     aliases: ['bark'],
     public: true
-}
+};

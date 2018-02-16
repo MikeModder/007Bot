@@ -2,7 +2,7 @@ exports.run = (client, message, [mention, ...reason]) => {
 
     kMember = message.mentions.members.first();
 
-    if(!message.member.permissions.has('KICK_MEMBERS') || !message.author.id === client.config.owner){
+    if(!message.member.permissions.has('KICK_MEMBERS')){
         message.channel.send(':x: You don\'t have permission to run that command!');
         return;
     }
@@ -18,7 +18,7 @@ exports.run = (client, message, [mention, ...reason]) => {
     }
 
     if(kMember.id === message.author.id){
-        message.channel.send(':x: Error! You can\'t kick yourself!')
+        message.channel.send(':x: Error! You can\'t kick yourself!');
         return;
     }
 
@@ -31,7 +31,7 @@ exports.run = (client, message, [mention, ...reason]) => {
         return;
     })
     .catch(e => {
-        message.channel.send(':x: There was an error kicking the user!')
+        message.channel.send(':x: There was an error kicking the user!');
     });
 };
 

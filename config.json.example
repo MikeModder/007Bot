@@ -15,9 +15,5 @@
     "invites": {
         "allowInvite": false,
         "inviteURL": "Coming soon:tm:"
-    },
-    "dbans": {
-        "usedbans": true,
-        "key": "your key here"
     }
 }

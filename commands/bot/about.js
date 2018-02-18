@@ -2,6 +2,7 @@ exports.run = (client, message, args) => {
 
     const Discord = require('discord.js');
     const shell = require('shelljs');
+    const upFor = require('moment')(Date.now() - client.uptime).toNow(true);
     let embed = new Discord.RichEmbed();
     
     shell.exec('git rev-parse --short HEAD', { silent: true }, (code, out) => {
@@ -12,6 +13,7 @@ exports.run = (client, message, args) => {
             .addField('Instance hosted by', client.users.get(client.config.owner).tag, true)
             .addField('Commands loaded', client.commands.size, true)
             .addField('Commands ran', client.commandsRan, true)
+            .addField('Up for', upFor, true)
             .addField('Programmed by', 'mikemodder007#7678 (152541437068705793)');
 
         message.channel.send(embed);

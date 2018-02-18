@@ -20,6 +20,7 @@ exports.run = (client, message, args) => {
     if (typeof evaled !== "string")
       evaled = require("util").inspect(evaled);
 
+		if(evaled.length > 2000) return message.channel.send(`:x: The output was over 2000 characters!`);
     message.channel.send(clean(evaled), {code:"xl"});
   } catch (err) {
     message.channel.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);

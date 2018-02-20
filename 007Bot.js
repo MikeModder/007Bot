@@ -112,7 +112,7 @@ client.on("message", message => {
 
   //We have that command and the user isn't ignored/a bot!
   let cmd = client.commands.get(command) || client.commands.get(client.aliases.get(command));
-  if(!cmd.cfg.public && id !== client.config.owner) return message.channel.send(`:x: You don't have permission to run that command!`);
+  if(!cmd.cfg.public && !client.config.owners.includes(id)) return message.channel.send(`:x: You don't have permission to run that command!`);
   client.commandsRan++;
   if(client.config.pmx) commandsPerMinute.mark();
   cmd.run(client, message, args);

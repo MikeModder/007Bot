@@ -1,7 +1,6 @@
 exports.run = (client, message, args) => {
     let shell = require('shelljs');
 
-    let msg;
     message.channel.send(`Running \`git pull\` and \`npm install\`, please wait...`)
         .then((msg) => {
             shell.exec('git pull');

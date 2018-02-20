@@ -1,10 +1,4 @@
 exports.run = (client, message, args) => {
-
-  if (message.author.id !== client.config.owner){
-    message.channel.send(':x: You don\'t have permission to run that command!');
-    return;
-  }
-
   let id;
   if(message.mentions.members.first() === undefined){
     id = args[1];

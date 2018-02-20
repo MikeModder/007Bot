@@ -1,7 +1,4 @@
 exports.run = (client, message, args) => {
-
-
-
 	function clean(text) {
 		if (typeof(text) === "string")
 		return text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));
@@ -9,10 +6,6 @@ exports.run = (client, message, args) => {
 		return text;
 	}
 
-	if(message.author.id !== client.config.owner){
-		message.channel.send(":x: You don't have permission to run that command!");
-		return;
-	}
   try {
     const code = args.join(" ");
     let evaled = eval(code);

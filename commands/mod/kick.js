@@ -26,7 +26,7 @@ exports.run = (client, message, [mention, ...reason]) => {
 
     kMember.send(`You have been kicked from the server **${message.guild.name}**\nReason: `+fullReason);
 
-    kMember.ban(fullReason).then(member => {
+    kMember.kick(fullReason).then(member => {
         message.channel.send(`User **${member.user.username}** was kicked!`);
         return;
     })

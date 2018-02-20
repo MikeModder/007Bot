@@ -59,14 +59,21 @@ exports.run = (client, message, args) => {
             });
             message.channel.send(`The following roles are setup for RoleMe:\n\`${roles.join(', ')}\``);
             break;
+        case undefined:
+            message.channel.send(`:x: You must provide an action/role name!`);
+            break;
         default:
             //add or remove a role from the user
 
+            rolename = fullArgs;
             roles = client.search.FindRoleByName(rolename, message.guild);
             if(!roles) return message.channel.send(`:x: There was no role found matching \`${rolename}\`!`);
 
-            rolename = fullArgs;
             let roleArray = [];
+            let rolesArray = [];
+            roles.forEach(r => {
+                rolesArray.push(r.name);
+            });
             config.roleme.forEach(ar => {
                 roleArray.push(message.guild.roles.get(ar).name);
             });

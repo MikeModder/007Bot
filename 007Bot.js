@@ -4,15 +4,19 @@ const enmap = require('enmap');
 const enmapLevel = require('enmap-level');
 const moment = require('moment');
 const { readdir } = require('fs');
+const BlankServerConf = require('./Constants').DefServerConf;
 const pmx = require('pmx');
 const probe = pmx.probe();
 
 let commandsPerMinute, guildCounter, memberCounter;
 
 client.config = require('./config.json');
+client.search = require('./helpers/Search');
+
 client.tags = new enmap({provider: new enmapLevel({name: 'tags'})});
 client.ignores = new enmap({provider: new enmapLevel({name: 'ignores'})});
 client.afk = new enmap({provider: new enmapLevel({name: 'afk'})});
+client.server_cfg = new enmap({provider: new enmapLevel({name: 'server_cfg'})});
 
 client.commands = new enmap();
 client.aliases = new enmap();
@@ -25,6 +29,9 @@ client.tags.defer.then(() => {
 });
 client.ignores.defer.then(() => {
   console.log(`[INGORES] ${client.ignores.size} users on the list.`);
+});
+client.server_cfg.defer.then(() => {
+  console.log(`[CFG] Loaded ${client.server_cfg.size} guild configs!`);
 });
 
 const categories = client.config.categories;
@@ -73,6 +80,11 @@ client.on("ready", () => {
       client.channels.get(client.config.logs.channelId).send(`[${moment().format('lll')}] ${cleanedText}`);
     };
   } else { client.addLog = (t) => {}; }
+  client.guilds.forEach(g => {
+    if(!client.server_cfg.has(g.id)){
+      client.server_cfg.set(g.id, BlankServerConf);
+    }
+  });
   client.addLog(`Bot started!`);
   client.user.setGame(`Say ${client.config.prefix}help for help! | In ${client.guilds.size} servers | ${client.users.size} users.`);
 });
@@ -121,11 +133,34 @@ client.on("message", message => {
 client.on('guildCreate', (guild) => {
   client.addLog(`Joined guild \`${guild.name}\` owned by \`${guild.owner.user.tag}\` with \`${guild.memberCount}\` members.\nNow in \`${client.guilds.size}\` servers with \`${client.users.size}\` users.`);
   client.user.setGame(`Say ${client.config.prefix}help for help! | In ${client.guilds.size} servers | ${client.users.size} users.`);
+  client.server_cfg.set(guild.id, BlankServerConf);
 });
 
 client.on('guildDelete', (guild) => {
   client.addLog(`Left guild \`${guild.name.replace('@', '')}\` owned by \`${guild.owner.user.tag}\` with \`${guild.memberCount}\` members.\nNow in \`${client.guilds.size}\` servers with \`${client.users.size}\` users.`);
   client.user.setGame(`Say ${client.config.prefix}help for help! | In ${client.guilds.size} servers | ${client.users.size} users.`);
+});
+
+client.on('guildMemberAdd', (member) => {
+  let guild = member.guild;
+  let config = client.server_cfg.get(guild.id);
+  if(config.autorole.length > 0){
+    let roles = [];
+    config.autorole.forEach(ar => {
+      roles.push(guild.roles.get(ar));
+    });
+    member.addRoles(roles)
+      .catch(e => {  });
+  }
+});
+
+client.on('roleDelete', (role) => {
+  let guild = role.guild;
+  let config = client.server_cfg.get(guild.id);
+  if(config.autorole.includes(role.id)){
+    config.autorole.splice(config.roleme.indexOf(role.id), 1);
+    client.server_cfg.get(guild.id, config);
+  }
 });
 
 client.login(client.config.token);

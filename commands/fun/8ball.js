@@ -1,5 +1,7 @@
 exports.run = (client, message, args) => {
     let question = args.join(' ');
+    if(!question) return message.channel.send(':x: You must ask the ball a question!');
+
     let responses = [
         //Affirmitave
         'It is certain',

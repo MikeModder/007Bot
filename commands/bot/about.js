@@ -9,7 +9,8 @@ exports.run = (client, message, args) => {
     if(multipleOwners){
         //There are more than one "owners" of the bot
         for(let o of client.config.owners){
-            let tag = client.users.get(o).tag;
+            let usr = client.users.get(o);
+            let tag = usr ? usr.tag : 'Unkown user';
             tags.push(`${tag} (${o})`);
         }
         ranBy = tags.join(', ');

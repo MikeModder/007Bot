@@ -34,7 +34,7 @@ exports.run = (client, message, args) => {
 
 exports.cfg = {
     name: '8ball',
-    desc: 'See what the magic 8 ball has to say!.',
+    desc: 'See what the magic 8 ball has to say!',
     usage: '{prefix}8ball [question]',
     aliases: [],
     public: true

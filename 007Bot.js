@@ -73,7 +73,7 @@ if(client.config.pmx){
 }
 
 client.on("ready", () => {
-  console.log(`Bot is ready! Logged in as ${client.user.username}.\nServing ${client.users.size} users, in ${client.guilds.size} servers.`);
+  console.log(`[READY] Bot is ready! Logged in as ${client.user.username}. Serving ${client.users.size} users, in ${client.guilds.size} servers.`);
   if(client.config.logs.enabled){
     client.addLog = (text) => {
       cleanedText = text.replace('@', '');
@@ -86,7 +86,22 @@ client.on("ready", () => {
     }
   });
   client.addLog(`Bot started!`);
-  client.user.setGame(`Say ${client.config.prefix}help for help! | In ${client.guilds.size} servers | ${client.users.size} users.`);
+  client.updateStatus = () => {
+    let statuses = [
+      `with ${client.users.size} users!`,
+      `with ${client.guilds.size} ${client.guilds.size > 1 ? 'guilds' : 'guild'} and ${client.channels.size} ${client.channels.size > 1 ? 'channels' : 'channel'}!`,
+      `with ${client.emojis.size} ${client.emojis.size > 1 ? 'emojis' : 'emoji'}!`,
+      `for ${require('moment')(Date.now() - client.uptime).toNow(true)}!`,
+      `with ${client.commands.size} commands!`
+    ];
+    let newStatus = statuses[Math.round(Math.random() * statuses.length)];
+    client.user.setGame(newStatus);
+  };
+  client.updateStatus();
+  //Change status every 5 minutes.
+  setInterval(() => {
+    client.updateStatus();
+  }, 5 * 60000);
 });
 
 client.on("message", message => {
@@ -132,13 +147,11 @@ client.on("message", message => {
 
 client.on('guildCreate', (guild) => {
   client.addLog(`Joined guild \`${guild.name}\` owned by \`${guild.owner.user.tag}\` with \`${guild.memberCount}\` members.\nNow in \`${client.guilds.size}\` servers with \`${client.users.size}\` users.`);
-  client.user.setGame(`Say ${client.config.prefix}help for help! | In ${client.guilds.size} servers | ${client.users.size} users.`);
   client.server_cfg.set(guild.id, BlankServerConf);
 });
 
 client.on('guildDelete', (guild) => {
   client.addLog(`Left guild \`${guild.name.replace('@', '')}\` owned by \`${guild.owner.user.tag}\` with \`${guild.memberCount}\` members.\nNow in \`${client.guilds.size}\` servers with \`${client.users.size}\` users.`);
-  client.user.setGame(`Say ${client.config.prefix}help for help! | In ${client.guilds.size} servers | ${client.users.size} users.`);
 });
 
 client.on('guildMemberAdd', (member) => {

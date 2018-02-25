@@ -8,10 +8,17 @@ exports.run = (client, message, args) => {
             if(!cmd.cfg.public && message.author.id !== client.config.owner){
 
             } else {
-                embed.addField(cmd.cfg.name, cmd.cfg.desc, true);
+                embed.addField(cmd.cfg.name, cmd.cfg.desc, false);
             }
         });
-        return message.channel.send(embed);
+        message.author.send(embed)
+            .then(() => {
+                message.react('✅');
+            })
+            .catch(e => {
+                message.channel.send(':x: I couldn\`t DM you the command list!');
+            });
+        return;
     }
     if(!client.commands.has(command) && !client.aliases.has(command)) return message.channel.send(`:x: \`${command}\` is not a valid command or alias!!`);
 

@@ -110,7 +110,7 @@ exports.run = (client, message, args) => {
 
       tag = client.tags.get(args[0]);
       args.shift();
-      message.channel.send(`Content of tag:\n${script(tag.content)}`);
+      message.channel.send(`${script(tag.content)}`);
       break;
   }
 

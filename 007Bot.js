@@ -142,10 +142,11 @@ client.on("message", message => {
   if(!cmd.cfg.public && !client.config.owners.includes(id)) return message.channel.send(`:x: You don't have permission to run that command!`);
   client.commandsRan++;
   if(client.config.pmx) commandsPerMinute.mark();
-  cmd.run(client, message, args)
-    .catch(e => {
-      message.channel.send(`:x: Oh snap, there was a really bad error!\`\`\`${e}\`\`\``);
-    });
+  try {
+    cmd.run(client, message, args);
+  } catch (e) {
+    message.channel.send(`:x: There was a really big error! \`\`\`${e}\`\`\``);
+  }
 });
 
 client.on('guildCreate', (guild) => {

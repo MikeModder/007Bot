@@ -142,6 +142,7 @@ client.on("message", message => {
   if(!cmd.cfg.public && !client.config.owners.includes(id)) return message.channel.send(`:x: You don't have permission to run that command!`);
   client.commandsRan++;
   if(client.config.pmx) commandsPerMinute.mark();
+ return message.channel.send('you just got :clap: pranked!'); 
   try {
     cmd.run(client, message, args);
   } catch (e) {
